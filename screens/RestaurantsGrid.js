@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import {AsyncStorage} from 'react-native';
 import {
     Button,
     DropDownMenu,
@@ -27,37 +28,36 @@ import {connect} from 'react-redux';
 
 import {navigatePush} from '../redux';
 
-class rightButton extends React.Component {
-    render() {
-        return(
-            <View styleName="container" virtual>
-                <Button>
-                    <Icon name="cart"/>
-                </Button>
-            </View>
-        );
-    }
-}
-// const rightButton = () => {
-//     const cars = require("../assets/data/menu");
-//     var selectedCar = null;
-//     return (
-//         <View styleName="container" virtual>
-//             <DropDownMenu
-//                 options={cars}
-//                 selectedOption={selectedCar ? selectedCar : cars[0]}
-//                 onOptionSelected={(car) => {
-//                         selectedCar = car;
-//                         console.log(selectedCar);
-//                     }
-//                 }
-//                 titleProperty="title"
-//                 valueProperty="value"
-//             />
-//         </View>
-//     );
+// class rightButton extends React.Component {
+//     render() {
+//         return(
+//             <View styleName="container" virtual>
+//                 <Button>
+//                     <Icon name="cart"/>
+//                 </Button>
+//             </View>
+//         );
+//     }
 // }
 
+const rightButton = () => {
+    const cars = require("../assets/data/menu");
+    let selectedCar = cars[0];
+    return (
+        <View styleName="container" virtual>
+            <DropDownMenu
+                options={cars}
+                selectedOption={cars[0]}
+                onOptionSelected={(car) => {
+                    selectedCar = car;
+                    console.log(car);
+                }}
+                titleProperty="title"
+                valueProperty="value"
+            />
+        </View>
+    );
+}
 
 class RestaurantsGrid extends Component {
     static propTypes = {
@@ -70,7 +70,7 @@ class RestaurantsGrid extends Component {
         this.renderRow = this.renderRow.bind(this);
 
         this.state = {
-            restaurants: this.getRestaurants(),
+            restaurants: this.getRestaurants()
         }
     }
 
@@ -127,6 +127,10 @@ class RestaurantsGrid extends Component {
 
 
     render() {
+
+
+
+
         // Group the restaurants into rows with 2 columns, except for the
         // first article. The first article is treated as a featured article
         let isFirstArticle = true;
