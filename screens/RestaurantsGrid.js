@@ -27,34 +27,37 @@ import {connect} from 'react-redux';
 
 import {navigatePush} from '../redux';
 
-class cartButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            cars: [
-                {title: 'Car A', value: 'Brand A'},
-                {title: 'Car B ', value: 'Brand B'},
-                {title: 'Car C', value: 'Brand C'},
-            ],
-        }
-    }
-
+class rightButton extends React.Component {
     render() {
-        return (
-            <View>
-                <DropDownMenu
-                    styleName="horizontal"
-                    options={this.state.cars}
-                    selectedOption={this.state.selectedCar ? this.state.selectedCar : this.state.cars[0]}
-                    onOptionSelected={(car) => this.setState({selectedCar: car})}
-                    titleProperty="title"
-                    valueProperty="value"
-                />
-                <Text>{this.state.selectedCar ? this.state.selectedCar.value : this.state.cars[0].value}</Text>
+        return(
+            <View styleName="container" virtual>
+                <Button>
+                    <Icon name="cart"/>
+                </Button>
             </View>
         );
     }
 }
+// const rightButton = () => {
+//     const cars = require("../assets/data/menu");
+//     var selectedCar = null;
+//     return (
+//         <View styleName="container" virtual>
+//             <DropDownMenu
+//                 options={cars}
+//                 selectedOption={selectedCar ? selectedCar : cars[0]}
+//                 onOptionSelected={(car) => {
+//                         selectedCar = car;
+//                         console.log(selectedCar);
+//                     }
+//                 }
+//                 titleProperty="title"
+//                 valueProperty="value"
+//             />
+//         </View>
+//     );
+// }
+
 
 class RestaurantsGrid extends Component {
     static propTypes = {
@@ -138,8 +141,10 @@ class RestaurantsGrid extends Component {
         return (
             <Screen>
                 <NavigationBar
+                    //renderLeftComponent={leftButton}
+                    renderRightComponent={rightButton}
                     title="All Restaurants (Grid)"
-                    renderRightComponent={cartButton}
+
                 />
                 <ListView
                     data={groupedData}
